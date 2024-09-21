@@ -6,8 +6,18 @@ RUN localedef -f UTF-8 -i ja_JP ja_JP
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
+RUN npm install -g @nestjs/cli
+
 # server ディレクトリ
 WORKDIR /server
+
+COPY /server/package*.json ./
+
+RUN npm cache clean --force
+RUN npm install
+
+COPY /server /server
+RUN chmod 755 ./setup.sh
 
 # Docker コンテナが起動されたときに実行されるコマンド: server/setup.sh を実行する
 ENTRYPOINT ["sh", "./setup.sh" ]
