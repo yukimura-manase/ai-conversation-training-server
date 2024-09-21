@@ -10,8 +10,11 @@ RUN apt-get update && \
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
-RUN npm cache clean --force
-RUN npm install -g @nestjs/cli
+# yarn のキャッシュクリア（必要であれば）
+RUN yarn cache clean --force
+
+# NestJS CLI をグローバルインストール
+RUN yarn global add @nestjs/cli
 
 # server ディレクトリに作業ディレクトリを設定
 WORKDIR /server
@@ -22,7 +25,8 @@ COPY /server/package*.json ./
 # TypeORM, pg, NestJSの依存関係をインストール (yarn 使用)
 RUN yarn add @nestjs/typeorm typeorm pg
 
-RUN npm install --save-dev @types/babel__core @types/babel__generator @types/babel__template @types/babel__traverse
+# Babel の型定義を開発依存として追加
+RUN yarn add --dev @types/babel__core @types/babel__generator @types/babel__template @types/babel__traverse
 
 # 依存関係のインストール（yarn 使用）
 RUN yarn install --frozen-lockfile
