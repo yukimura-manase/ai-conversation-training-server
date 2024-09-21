@@ -7,28 +7,17 @@ RUN apt-get update && \
     locale-gen ja_JP.UTF-8 && \
     localedef -f UTF-8 -i ja_JP ja_JP
 
+# 環境変数の設定
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
-# yarn のキャッシュクリア（必要であれば）
-RUN yarn cache clean --force
-
-# NestJS CLI をグローバルインストール
-RUN yarn global add @nestjs/cli
-
-# server ディレクトリに作業ディレクトリを設定
+# 作業ディレクトリの設定
 WORKDIR /server
 
 # package.json と yarn.lock をコピー
 COPY /server/package*.json ./
 
-# TypeORM, pg, NestJSの依存関係をインストール (yarn 使用)
-RUN yarn add @nestjs/typeorm typeorm pg
-
-# Babel の型定義を開発依存として追加
-RUN yarn add --dev @types/babel__core @types/babel__generator @types/babel__template @types/babel__traverse
-
-# 依存関係のインストール（yarn 使用）
+# 依存関係のインストール
 RUN yarn install --frozen-lockfile
 
 # ソースコードをコピー
