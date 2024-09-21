@@ -28,6 +28,9 @@ $ yarn install
 ```
 
 `.env.exapmle`を`.env`の名前でローカルにコピーして下さい
+```
+$ cp .env.exapmle .env
+```
 
 - local に NestJS CLI が Install されていない場合は、まずは CLI を install しましょう。
 
