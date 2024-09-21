@@ -6,6 +6,7 @@ RUN localedef -f UTF-8 -i ja_JP ja_JP
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
+RUN npm cache clean --force
 RUN npm install -g @nestjs/cli
 RUN npm install @nestjs/typeorm typeorm pg
 
