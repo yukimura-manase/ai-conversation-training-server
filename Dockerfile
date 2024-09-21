@@ -1,25 +1,35 @@
+# ベースイメージを指定
 FROM node:18.16.0-slim
+
+# 必要なパッケージのインストールとロケール、タイムゾーン設定
 RUN apt-get update && \
-    apt-get install -y locales curl
-RUN locale-gen ja_JP.UTF-8
-RUN localedef -f UTF-8 -i ja_JP ja_JP
+    apt-get install -y locales curl && \
+    locale-gen ja_JP.UTF-8 && \
+    localedef -f UTF-8 -i ja_JP ja_JP
+
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
 RUN npm cache clean --force
 RUN npm install -g @nestjs/cli
-RUN npm install @nestjs/typeorm typeorm pg
 
-# server ディレクトリ
+# server ディレクトリに作業ディレクトリを設定
 WORKDIR /server
 
+# package.json と yarn.lock をコピー
 COPY /server/package*.json ./
 
-RUN yarn cache clean --force
-RUN yarn install
+# TypeORM, pg, NestJSの依存関係をインストール (yarn 使用)
+RUN yarn add @nestjs/typeorm typeorm pg
 
+# 依存関係のインストール（yarn 使用）
+RUN yarn install --frozen-lockfile
+
+# ソースコードをコピー
 COPY /server /server
-RUN chmod 755 ./setup.sh
 
-# Docker コンテナが起動されたときに実行されるコマンド: server/setup.sh を実行する
-ENTRYPOINT ["sh", "./setup.sh" ]
+# setup.sh の権限を変更
+RUN chmod +x ./setup.sh
+
+# Docker コンテナ起動時に実行されるコマンド
+ENTRYPOINT ["sh", "./setup.sh"]
