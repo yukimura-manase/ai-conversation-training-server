@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { KimerasController } from './controllers/kimeras.controller';
-import { KimerasService } from './services/kimeras.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { KimerasModule } from './modules/kimeras.module'; // KimerasModuleをインポート
 
 @Module({
-  imports: [],
-  controllers: [KimerasController],
-  providers: [KimerasService],
+  imports: [
+    TypeOrmModule.forRoot(), // TypeORMの設定をここに追加
+    KimerasModule, // KimerasModuleをインポート
+  ],
 })
 export class AppModule {}
