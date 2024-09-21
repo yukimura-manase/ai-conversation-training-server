@@ -13,8 +13,8 @@ WORKDIR /server
 
 COPY /server/package*.json ./
 
-RUN npm cache clean --force
-RUN npm install
+RUN yarn cache clean --force
+RUN yarn install
 
 COPY /server /server
 RUN chmod 755 ./setup.sh
