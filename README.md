@@ -59,3 +59,14 @@ docker compose exec nest-server bash
 ## 参考・引用
 
 1. [Docker を使って NestJS の開発環境を構築してみました](https://zenn.dev/bloomer/articles/335e2d7c26ac86)
+
+
+## API起動方法
+```
+npm install express sqlite3
+```
+
+```
+$ node server.js
+Server is running on http://localhost:3000
+```
