@@ -20,6 +20,15 @@
 
 ### 0. Nest CLI をインストール
 
+`server`ディレクトリに移動して、`yarn install`してください
+```
+$ cd server/
+
+$ yarn install
+```
+
+`.env.exapmle`を`.env`の名前でローカルにコピーして下さい
+
 - local に NestJS CLI が Install されていない場合は、まずは CLI を install しましょう。
 
 ```bash
