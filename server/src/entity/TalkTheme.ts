@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('talk_themes')
+@Entity()
 export class TalkTheme {
   @PrimaryGeneratedColumn('uuid')
   talk_theme_id: string;
