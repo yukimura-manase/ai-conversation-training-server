@@ -22,8 +22,6 @@ services:
     volumes:
       - ./db/postgres/init.d:/docker-entrypoint-initdb.d
       - ./db/postgres/data:/var/lib/postgresql/data
-    env_file:
-      - .env.exapmle
     # PostgreSQLの環境変数を設定
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
