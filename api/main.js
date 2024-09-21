@@ -9,13 +9,13 @@ const db = new sqlite3.Database('./db.sqlite');
 // JSONボディのパースを有効にする
 app.use(express.json());
 
-// users APIをインポート
+// users
 const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 
-// 他のAPIも追加するならここに追記してね
-// const postsRouter = require('./routes/posts');
-// app.use('/posts', postsRouter);
+// talk_logs
+const talkLogsRouter = require('./routes/talk_logs');
+app.use('/talk_logs', talkLogsRouter);
 
 // サーバーの開始
 app.listen(port, () => {
