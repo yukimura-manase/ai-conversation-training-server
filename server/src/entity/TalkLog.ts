@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('talk_logs')
+@Entity()
 export class TalkLog {
   @PrimaryGeneratedColumn('uuid')
   talk_log_id: string;

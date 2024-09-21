@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { KimerasService } from '../services/kimeras.service';
-import { Kimera } from '../entities/kimera.entity';
+import { Kimera } from '../entity/Kimera';
 
 @Controller('kimeras')
 export class KimerasController {

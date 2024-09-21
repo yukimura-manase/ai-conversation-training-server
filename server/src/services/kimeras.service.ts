@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Kimera } from '../entities/kimera.entity';
+import { Kimera } from '../entity/Kimera';
 
 @Injectable()
 export class KimerasService {

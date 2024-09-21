@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('ai_feedbacks')
+@Entity()
 export class AiFeedBack {
   @PrimaryGeneratedColumn('uuid')
   feedback_id: string;

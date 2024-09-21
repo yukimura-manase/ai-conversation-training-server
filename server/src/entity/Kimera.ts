@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
-@Entity('kimeras')
+@Entity()
 export class Kimera {
   @PrimaryGeneratedColumn('uuid')
   kimera_id: string;
