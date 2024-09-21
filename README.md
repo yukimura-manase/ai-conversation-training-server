@@ -49,7 +49,7 @@ docker-compose up --build
 ### NestJS Container に入る時のコマンド
 
 ```bash
-docker compose exec nest-app bash
+docker compose exec nest-server bash
 ```
 
 ## 起動確認
