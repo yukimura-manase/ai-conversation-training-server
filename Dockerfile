@@ -22,6 +22,8 @@ COPY /server/package*.json ./
 # TypeORM, pg, NestJSの依存関係をインストール (yarn 使用)
 RUN yarn add @nestjs/typeorm typeorm pg
 
+RUN npm install --save-dev @types/babel__core @types/babel__generator @types/babel__template @types/babel__traverse
+
 # 依存関係のインストール（yarn 使用）
 RUN yarn install --frozen-lockfile
 
