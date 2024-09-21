@@ -1,27 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class TalkLog {
   @PrimaryGeneratedColumn('uuid')
-  user_id: string;
+  talk_log_id: string;
+
+  @Column('uuid')
+  chat_room_id: number;
 
   @Column()
-  name: string;
+  user_talk: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  address: string;
-
-  @Column()
-  phone: string;
-
-  @Column()
-  image_url: string;
+  ai_talk: string;
 
   @CreateDateColumn()
   created_at: Date;
