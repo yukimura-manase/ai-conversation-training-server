@@ -6,9 +6,6 @@ export class Kimera {
   kimera_id: string;
 
   @Column('uuid')
-  talk_theme_group_id: string;
-
-  @Column()
   persona_id: string;
 
   @Column()
@@ -22,6 +19,15 @@ export class Kimera {
 
   @Column()
   like: string;
+
+  @Column('text')
+  personality: string;
+
+  @Column('text')
+  quirks: string;
+
+  @Column('text')
+  hobbies: string;
 
   @CreateDateColumn()
   created_at: Date;
