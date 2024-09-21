@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { KimerasModule } from './modules/kimeras.module';
-import { AppDataSource } from './data-source';
 
 @Module({
   imports: [
@@ -12,11 +11,10 @@ import { AppDataSource } from './data-source';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      synchronize: AppDataSource.options['synchronize'],
-      logging: AppDataSource.options['logging'],
-      entities: AppDataSource.options['entities'],
-      migrations: AppDataSource.options['migrations'],
-      subscribers: AppDataSource.options['subscribers'],
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: false,
+      migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+      autoLoadEntities: true,
     }),
     KimerasModule,
   ],
