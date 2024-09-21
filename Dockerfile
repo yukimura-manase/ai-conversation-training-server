@@ -10,10 +10,7 @@ RUN apt-get update && \
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
-# npm のキャッシュクリア（必要であれば）
 RUN npm cache clean --force
-
-# NestJS CLI をグローバルインストール
 RUN npm install -g @nestjs/cli
 
 # server ディレクトリに作業ディレクトリを設定
