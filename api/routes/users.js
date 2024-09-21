@@ -1,21 +1,12 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const app = express();
-const port = 3000;
+const router = express.Router();
 
-// データベースファイルへのパスを指定して接続
+// データベースの準備
+const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db.sqlite');
 
-// JSONボディのパースを有効にする
-app.use(express.json());
-
-// データベーステーブルの作成
-db.serialize(() => {
-  db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT)');
-});
-
 // ユーザーの追加 (CREATE)
-app.post('/users', (req, res) => {
+router.post('/', (req, res) => {
   const { name, email } = req.body;
   db.run('INSERT INTO users (name, email) VALUES (?, ?)', [name, email], function (err) {
     if (err) {
@@ -27,7 +18,7 @@ app.post('/users', (req, res) => {
 });
 
 // ユーザーの取得 (READ)
-app.get('/users', (req, res) => {
+router.get('/', (req, res) => {
   db.all('SELECT * FROM users', [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -38,7 +29,7 @@ app.get('/users', (req, res) => {
 });
 
 // 特定のユーザーの取得 (READ)
-app.get('/users/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const id = req.params.id;
   db.get('SELECT * FROM users WHERE id = ?', [id], (err, row) => {
     if (err) {
@@ -54,7 +45,7 @@ app.get('/users/:id', (req, res) => {
 });
 
 // ユーザーの更新 (UPDATE)
-app.put('/users/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const id = req.params.id;
   const { name, email } = req.body;
   db.run('UPDATE users SET name = ?, email = ? WHERE id = ?', [name, email, id], function (err) {
@@ -71,7 +62,7 @@ app.put('/users/:id', (req, res) => {
 });
 
 // ユーザーの削除 (DELETE)
-app.delete('/users/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const id = req.params.id;
   db.run('DELETE FROM users WHERE id = ?', [id], function (err) {
     if (err) {
@@ -86,7 +77,4 @@ app.delete('/users/:id', (req, res) => {
   });
 });
 
-// サーバーの開始
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+module.exports = router;
