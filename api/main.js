@@ -17,7 +17,7 @@ app.use('/users', usersRouter);
 const talkLogsRouter = require('./routes/talkLogs');
 app.use('/talk_logs', talkLogsRouter);
 
-// talk_logs
+// ai_feedback
 const aiFeedbackRouter = require('./routes/aiFeedback');
 app.use('/ai_feedback', aiFeedbackRouter);
 
