@@ -18,8 +18,12 @@ const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
 
 // talk_logs
-const talkLogsRouter = require("./routes/talk_logs");
-app.use("/talk_logs", talkLogsRouter);
+const talkLogsRouter = require('./routes/talkLogs');
+app.use('/talk_logs', talkLogsRouter);
+
+// ai_feedback
+const aiFeedbackRouter = require('./routes/aiFeedback');
+app.use('/ai_feedback', aiFeedbackRouter);
 
 // サーバーの開始
 app.listen(port, () => {

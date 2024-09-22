@@ -66,3 +66,41 @@ $ curl -X GET http://localhost:3000/talk_logs | jq
   ]
 }
 ```
+
+### aiFeedback
+POST: フィードバックを登録
+```
+$ curl -X POST http://localhost:3000/ai_feedback \
+-H "Content-Type: application/json" \
+-d '{
+  "userId": "1",
+  "chatRoomId": "1",
+  "feedback": "This is a test feedback",
+  "smileRating": 80,
+  "clearConversationRating": 50,
+  "smoothRating": 60,
+  "mannerRating": 100,
+  "likeRating": 70,
+}'
+```
+
+GET: 特定のチャットルームIDから取得
+```
+$ curl -X GET http://localhost:3000/ai_feedback/1 | jq
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   310  100   310    0     0  88748      0 --:--:-- --:--:-- --:--:--  100k
+{
+  "feedback": {
+    "feedbackId": "63f9ce1c-03f2-46c0-bc29-2385cb98875d",
+    "userId": "1",
+    "chatRoomId": "1",
+    "feedback": "This is a test feedback",
+    "smileRating": 80,
+    "clearConversationRating": 50,
+    "smoothRating": 60,
+    "mannerRating": 100,
+    "likeRating": 70,
+  }
+}
+```
