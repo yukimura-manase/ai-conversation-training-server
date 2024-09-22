@@ -7,7 +7,7 @@ const db = new sqlite3.Database('./db.sqlite');
 // テーブル作成
 db.serialize(() => {
   db.run(`
-    CREATE TABLE IF NOT EXISTS talk_logs (
+    CREATE TABLE IF NOT EXISTS talkLogs (
       talkLogId TEXT PRIMARY KEY,
       chatRoomId INTEGER,
       userTalk TEXT,
