@@ -3,6 +3,7 @@ const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./db.sqlite");
+const { ChatChainLLM } = require("../logic/openAiLangChain");
 
 // テーブル作成
 db.serialize(() => {
@@ -61,27 +62,20 @@ router.post("/", (req, res) => {
 });
 
 // 特定のレコードの取得 (GET)
-router.get("/:chatRoomId", (req, res) => {
+router.get("/:chatRoomId", async (req, res) => {
   const { chatRoomId } = req.params;
 
-  db.get(
+  db.all(
     "SELECT * FROM aiFeedback WHERE chatRoomId = ?",
     [chatRoomId],
-    (err, row) => {
+    async (err, rows) => {
       if (err) {
         res.status(500).json({ error: err.message });
         return;
       }
-      if (row) {
-        // TODO: 1. 今までのチャットルームでの会話ログから、AIのフィードバックを取得する (関数置き換え予定)
-        const aiFeedback = {
-          feedback: "AIのフィードバック",
-          smileRating: 30,
-          clearConversationRating: 50,
-          smoothRating: 30,
-          mannerRating: 30,
-          likeRating: 50,
-        };
+      if (rows) {
+        // 今までのチャットルームでの会話ログから、AIのフィードバックを取得する (関数置き換え予定)
+        const aiFeedback = await ChatChainLLM(rows);
 
         // TODO: 2. DBに保存する
         res.json({ feedback: aiFeedback });
