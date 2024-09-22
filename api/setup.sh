@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm install express sqlite3 uuid
+npm install express sqlite3 uuid cors langchain @langchain/openai @langchain/core

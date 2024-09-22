@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { v4: uuidv4 } = require('uuid');
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db.sqlite');
+const { v4: uuidv4 } = require("uuid");
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("./db.sqlite");
 
 // テーブル作成
 db.serialize(() => {
@@ -19,7 +19,7 @@ db.serialize(() => {
 });
 
 // レコードの追加 (POST)
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   const { chatRoomId, userTalk, aiTalk } = req.body;
   const talkLogId = uuidv4();
   const createdAt = new Date().toISOString();
@@ -33,14 +33,15 @@ router.post('/', (req, res) => {
         res.status(500).json({ error: err.message });
         return;
       }
+      res.setHeader("Access-Control-Allow-Origin", "http://localhost:3008");
       res.status(201).json({ talkLogId });
     }
   );
 });
 
 // 全レコードの取得 (GET)
-router.get('/', (req, res) => {
-  db.all('SELECT * FROM talk_logs', [], (err, rows) => {
+router.get("/", (req, res) => {
+  db.all("SELECT * FROM talk_logs", [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
@@ -50,19 +51,23 @@ router.get('/', (req, res) => {
 });
 
 // 特定のレコードの取得 (GET)
-router.get('/:talkLogId', (req, res) => {
+router.get("/:talkLogId", (req, res) => {
   const { talkLogId } = req.params;
-  db.get('SELECT * FROM talk_logs WHERE talkLogId = ?', [talkLogId], (err, row) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
+  db.get(
+    "SELECT * FROM talk_logs WHERE talkLogId = ?",
+    [talkLogId],
+    (err, row) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      if (row) {
+        res.json({ talkLog: row });
+      } else {
+        res.status(404).json({ error: "Talk log not found" });
+      }
     }
-    if (row) {
-      res.json({ talkLog: row });
-    } else {
-      res.status(404).json({ error: 'Talk log not found' });
-    }
-  });
+  );
 });
 
 module.exports = router;
