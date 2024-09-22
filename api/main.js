@@ -14,7 +14,7 @@ const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 
 // talk_logs
-const talkLogsRouter = require('./routes/talk_logs');
+const talkLogsRouter = require('./routes/talkLogs');
 app.use('/talk_logs', talkLogsRouter);
 
 // サーバーの開始
