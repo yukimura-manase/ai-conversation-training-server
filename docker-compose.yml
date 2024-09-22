@@ -9,6 +9,14 @@ services:
     volumes:
       - ./server:/server
       # nest-serverサービスが、dbサービスの起動後に起動するように設定
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_NAME: ${POSTGRES_DB}
+    networks:
+      - app-network
     depends_on:
       - db
   db:
@@ -18,7 +26,9 @@ services:
     # コンテナが停止しても自動で再起動するように設定
     restart: always
     ports:
-      - 5777:5432
+      - 5432:5432
+    networks:
+      - app-network
     volumes:
       - ./db/postgres/init.d:/docker-entrypoint-initdb.d
       - ./db/postgres/data:/var/lib/postgresql/data
@@ -28,3 +38,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+
+networks:
+  app-network:
+    driver: bridge
