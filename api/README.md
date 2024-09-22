@@ -81,8 +81,6 @@ $ curl -X POST http://localhost:3000/ai_feedback \
   "smoothRating": 60,
   "mannerRating": 100,
   "likeRating": 70,
-  "createdAt": "2021-01-01T00:00:00Z",
-  "updatedAt": "2021-01-01T00:00:00Z"
 }'
 ```
 
@@ -103,8 +101,6 @@ $ curl -X GET http://localhost:3000/ai_feedback/1 | jq
     "smoothRating": 60,
     "mannerRating": 100,
     "likeRating": 70,
-    "createdAt": "2024-09-22T01:47:14.987Z",
-    "updatedAt": "2024-09-22T01:47:14.987Z"
   }
 }
 ```
