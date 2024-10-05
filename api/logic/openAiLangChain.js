@@ -44,7 +44,7 @@ async function ChatChainLLM(talkLogList) {
   const aiAnswer = talkLogList.map((talkLog) => talkLog.aiTalk).join("\n");
   const jsonAiAnswer = JSON.stringify(aiAnswer);
 
-  // Escape the curly braces in answerFormat
+  // answerFormat 内の中括弧をエスケープする
   const escapedAnswerFormat = escapeCurlyBraces(answerFormat);
 
   // 会話・総合評価AIの人格(性格)テンプレート
